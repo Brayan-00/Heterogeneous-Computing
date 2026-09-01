@@ -9,7 +9,7 @@ set xtics 1
 set xrange [0.5:4.5]
 
 # Obtain the execution time with one thread
-stats "datos.dat" using 2 every ::0::0 nooutput
+stats "datosb.dat" using 2 every ::0::0 nooutput
 T1 = STATS_min
 
 
