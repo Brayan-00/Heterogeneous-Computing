@@ -97,6 +97,39 @@ Ambos programas presentan un comportamiento diferenciado según la naturaleza de
 
 # Práctica de Clase 4
 
+## Ejercicio A
+
+Al compilar y ejecutar:
+```bash
+./libraries/build/bin/bench-static 1000000 1000 1.0 2.0
+```
+se obtiene los siguientes tiempos:
+
+- **fill A:** 2379612.446 microseconds total, 2379.612 per iteration
+- **fill B:** 2080261.094 microseconds total, 2080.261 per iteration
+- **add:**    3881442.448 microseconds total, 3881.442 per iteration
+
+La biblioteca estática muestra la siguiente información al utilizar el comando `ls -lh`:
+-rw-rw-r-- 1 brayan brayan 1.8K Aug 31 22:03 libvectorops.a
+
+
+## Ejercicio B
+
+Al compilar y ejecutar:
+```bash
+./libraries/build/bin/bench-dynamic 1000000 1000 1.0 2.0
+```
+se obtiene los siguientes tiempos:
+
+- **fill A:** 3693732.383 microseconds total, 3693.732 per iteration
+- **fill B:** 3587292.890 microseconds total, 3587.293 per iteration
+- **add:**    4473618.179 microseconds total, 4473.618 per iteration
+
+
+La biblioteca dinámica muestra la siguiente información al utilizar el comando `ls -lh`:
+-rwxrwxr-x 1 brayan brayan 16K Aug 31 21:44 libraries/build/lib/libvectorops.so
+
+Respecto a la versión estática el archivo pesa 8.89 veces más.
 
 ---
 
