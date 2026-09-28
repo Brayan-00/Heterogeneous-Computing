@@ -19,7 +19,7 @@ Este programa busca calcular la suma de dos vectores. El resultado es un vector 
 
 2. ¿Qué ocurre si N no es múltiplo del tamaño del bloque?
 
-    La división no es entera, entonces van a haber hilos dentro del último bloque que no son utilizados para esa tarea. Si se eligen menos bloques se dejarían por fuera múltiples elementos del vector.
+    La división no es entera, entonces habrán hilos dentro del último bloque que no son utilizados para esa tarea. Si se eligen menos bloques se dejarían por fuera múltiples elementos del vector.
 
 3. ¿Qué transferencias de memoria ocurren entre CPU y GPU?
 
@@ -46,7 +46,7 @@ vector-add n=2097152: OK
 Exit status: 0
 ```
 
-## producto punto
+## Producto punto
 
 El propósito general del programa es calcular el producto punto de dos vectores dados. Se identifican dos secciones que deben ser implementadas. La primera donde se realiza la multiplicación de los elementos de los vectores, aprovechando la paralelización que ofrece. Y la segunda realiza la acumulación de los resultados obtenidos, en esta parte se aplica una lógica en la que se suman dos valores con una distancia definida como `stride`.
 
@@ -55,7 +55,7 @@ El propósito general del programa es calcular el producto punto de dos vectores
 1. ¿Por qué este ejercicio no puede resolverse solamente escribiendo un valor independiente por
 hilo?
 
-    Se debe a que el cálculo del producto punto requiere que se realice una reducción. La primer parte donde se realiza la multiplicación $A[i] \cdot B[i]$ puede ser realizada por hilos independientes, pues no se requiere del resultado de otro hilo. Lo que sí pasa en la segunda parte donde se suman los resultados. Se ocupa que estén calculados y escritos todos los valores del vector que se va a reducir(sumar todos sus elementos).
+    Se debe a que el cálculo del producto punto requiere que se realice una reducción. La primer parte donde se realiza la multiplicación $A[i] \cdot B[i]$ puede ser realizada por hilos independientes, pues no se requiere del resultado de otro hilo. Lo que sí pasa en la segunda parte donde se suman los resultados. Se ocupa que estén calculados y escritos todos los valores del vector que se va a reducir (sumar todos sus elementos).
 
 2. ¿Cuántos valores parciales se copian de GPU a CPU?
 
@@ -89,7 +89,7 @@ dot-product n=4194304: gpu=-0.500000 cpu=-0.500000 error=0.000000 OK
 Exit status: 0
 ```
 
-## softmax
+## Softmax
 
 La función softmax toma un vector como entrada y lo normaliza en una distribución de probabilidades.
 Sigue la siguiente ecuación:
@@ -111,6 +111,7 @@ $y_{r,c} = \frac{e^{x_{r,c} - m_r}}{\sum_{j=0}^{cols-1} e^{x_{r,j} - m_r}}, \qua
 3. ¿Qué limitación tiene usar un solo bloque por fila cuando cols crece mucho?
 
     Se alcanza el límite físico de hilos dentro de ese bloque, esto significa que los hilos deben operar sobre múltiples columnas. Esto agrega latencia al proceso y reduce el speedup generado por la paralelización. 
+
 ### Salida del programa
 
 Utilizando LeetGPU se obtuvo el siguiente resultado:
