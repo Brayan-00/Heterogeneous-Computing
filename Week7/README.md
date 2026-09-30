@@ -46,6 +46,19 @@ vector-add n=2097152: OK
 Exit status: 0
 ```
 
+Utilizando Jetson Nano se obtienen los siguientes resultados:
+
+``` bash
+vector-add n=1048576: OK
+```
+
+``` bash
+nvcc -O2 -std=c++14 -lineinfo -o vector_add main.cu
+./vector_add 2097152
+vector-add n=2097152: OK
+```
+
+
 ## Producto punto
 
 El propósito general del programa es calcular el producto punto de dos vectores dados. Se identifican dos secciones que deben ser implementadas. La primera donde se realiza la multiplicación de los elementos de los vectores, aprovechando la paralelización que ofrece. Y la segunda realiza la acumulación de los resultados obtenidos, en esta parte se aplica una lógica en la que se suman dos valores con una distancia definida como `stride`.
@@ -88,6 +101,24 @@ Executing...
 dot-product n=4194304: gpu=-0.500000 cpu=-0.500000 error=0.000000 OK
 Exit status: 0
 ```
+
+Utilizando Jetson Nano se obtienen los siguientes resultados:
+
+``` bash
+    dot-product n=1048576: gpu=-21.250000 cpu=-21.250000 error=0.000000 OK
+```
+
+``` bash
+nvcc -O2 -std=c++14 -lineinfo -o dot_product main.cu
+./dot_product 1048576
+dot-product n=1048576: gpu=-21.250000 cpu=-21.250000 error=0.000000 OK
+```
+``` bash
+./dot_product 4194304
+dot-product n=4194304: gpu=-0.500000 cpu=-0.500000 error=0.000000 OK
+```
+
+
 
 ## Softmax
 
@@ -132,9 +163,46 @@ softmax rows=256 cols=2048: OK
 Exit status: 0
 ```
 
+Utilizando Jetson Nano se obtienen los siguientes resultados:
+
+``` bash
+softmax rows=128 cols=1024: OK
+```
+``` bash
+./softmax 256 2048
+softmax rows=256 cols=2048: OK
+```
+
+
+
 ## Descripción del Hardware
 
 Se hizo uso de la herramienta LeetGPU en su modo `Functional` con una GPU NVIDIA GTX TITAN X
+
+Además se utilizó el sistema con Jetson Nano que brinda la siguiente información con el comando ``lscpu``:
+
+``` bash
+Architecture:         aarch64
+Byte Order:           Little Endian
+CPU(s):               4
+On-line CPU(s) list:  0,1
+Off-line CPU(s) list: 2,3
+Thread(s) per core:   1
+Core(s) per socket:   2
+Socket(s):            1
+Vendor ID:            ARM
+Model:                1
+Model name:           Cortex-A57
+Stepping:             r1p1
+CPU max MHz:          1479,0000
+CPU min MHz:          102,0000
+BogoMIPS:             38.40
+L1d cache:            32K
+L1i cache:            48K
+L2 cache:             2048K
+Flags:                fp asimd evtstrm aes pmull sha1 sha2 crc32
+```
+
 
 ## Referencias y Herramientas
 
